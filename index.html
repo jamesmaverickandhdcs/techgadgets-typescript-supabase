@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechGadgets - Modern IT Store</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <h1>🚀 TechGadgets</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="products.html">Products</a>
+            <a href="cart.html">Cart (0)</a>
+            <a href="login.html">Login</a>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Welcome to TechGadgets!</h2>
+            <p style="font-size: 1.1rem; color: #666; margin-bottom: 2rem;">
+                Your one-stop shop for the latest IT gadgets and accessories.
+                Built with TypeScript and Supabase for modern, scalable performance.
+            </p>
+        </section>
+
+        <section>
+            <h2>Featured Products</h2>
+            <div id="featured-products"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 TechGadgets. Built with TypeScript + Supabase</p>
+    </footer>
+
+    <script type="module" src="dist/products.js"></script>
+    <script type="module">
+        import { initHomePage } from './dist/products.js';
+        initHomePage();
+    </script>
+</body>
+
+</html>

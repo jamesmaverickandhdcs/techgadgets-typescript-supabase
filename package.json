@@ -1,0 +1,15 @@
+{
+    "name": "techgadgets-typescript-supabase",
+    "version": "1.0.0",
+    "description": "Modern e-commerce with TypeScript and Supabase",
+    "scripts": {
+        "build": "tsc",
+        "watch": "tsc --watch"
+    },
+    "devDependencies": {
+        "typescript": "^5.3.3"
+    },
+    "dependencies": {
+        "@supabase/supabase-js": "^2.39.0"
+    }
+}
