@@ -28,7 +28,7 @@ export function displayCheckoutSummary(): void {
     if (totalEl) totalEl.textContent = total.toFixed(2);
 }
 
-export function handleCheckout(event: Event): void {
+export async function handleCheckout(event: Event): Promise<void> {
     event.preventDefault();
 
     const form = event.target as HTMLFormElement;
@@ -46,9 +46,32 @@ export function handleCheckout(event: Event): void {
     };
 
     const { subtotal, shipping, total } = calculateCartTotals();
+    const orderNumber = 'ORD-' + Date.now();
 
-    const order: Order = {
-        orderNumber: 'ORD-' + Date.now(),
+    const order = {
+        order_number: orderNumber,
+        user_email: customer.email,
+        customer_info: customer,
+        items: getCart(),
+        subtotal,
+        shipping,
+        total,
+        payment_method: formData.get('payment') as string,
+    };
+
+    // Save to Supabase
+    const { supabase } = await import('./config.js');
+    const { error } = await supabase.from('orders').insert([order]);
+
+    if (error) {
+        alert('Error placing order: ' + error.message);
+        return;
+    }
+
+    // Also save to localStorage for quick access
+    const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+    orders.push({
+        orderNumber,
         orderDate: new Date().toISOString(),
         customer,
         items: getCart(),
@@ -56,13 +79,9 @@ export function handleCheckout(event: Event): void {
         shipping,
         total,
         payment: formData.get('payment') as string,
-    };
-
-    // Save order
-    const orders = JSON.parse(localStorage.getItem('orders') || '[]');
-    orders.push(order);
+    });
     localStorage.setItem('orders', JSON.stringify(orders));
-    localStorage.setItem('lastOrder', JSON.stringify(order));
+    localStorage.setItem('lastOrder', JSON.stringify(orders[orders.length - 1]));
 
     clearCart();
     window.location.href = 'order-confirmation.html';
