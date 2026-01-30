@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation - TechGadgets</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <h1>🚀 TechGadgets</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="products.html">Products</a>
+            <a href="cart.html">Cart (0)</a>
+            <a href="login.html">Login</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="confirmation-container">
+            <div class="success-icon">✓</div>
+            <h2>Order Placed Successfully!</h2>
+            <p class="confirmation-message">Thank you for your order!</p>
+
+            <div class="order-details">
+                <h3>Order Details</h3>
+                <p><strong>Order Number:</strong> <span id="order-number"></span></p>
+                <p><strong>Date:</strong> <span id="order-date"></span></p>
+                <p><strong>Total:</strong> $<span id="order-total"></span></p>
+
+                <h3>Shipping Address</h3>
+                <div id="shipping-address"></div>
+
+                <h3>Items Ordered</h3>
+                <div id="ordered-items"></div>
+            </div>
+
+            <div class="confirmation-actions">
+                <a href="index.html" class="btn-primary">Continue Shopping</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 TechGadgets. Built with TypeScript + Supabase</p>
+    </footer>
+
+    <script type="module" src="dist/orders.js"></script>
+    <script type="module">
+        import { displayOrderConfirmation } from './dist/orders.js';
+        displayOrderConfirmation();
+    </script>
+</body>
+
+</html>

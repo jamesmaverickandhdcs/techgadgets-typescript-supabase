@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - TechGadgets</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="importmap">
+    {
+      "imports": {
+        "@supabase/supabase-js": "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm"
+      }
+    }
+    </script>
+</head>
+
+<body>
+    <header>
+        <h1>🚀 TechGadgets</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="products.html">Products</a>
+            <a href="cart.html">Cart (0)</a>
+            <a href="login.html">Login</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Checkout</h2>
+
+        <div class="checkout-container">
+            <div class="checkout-summary">
+                <h3>Order Summary</h3>
+                <div id="checkout-items"></div>
+                <div class="summary-totals">
+                    <div class="summary-row">
+                        <span>Subtotal:</span>
+                        <span>$<span id="checkout-subtotal">0.00</span></span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Shipping:</span>
+                        <span>$<span id="checkout-shipping">0.00</span></span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total:</span>
+                        <span>$<span id="checkout-total">0.00</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <form id="checkout-form" class="checkout-form">
+                <h3>Shipping Information</h3>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>First Name *</label>
+                        <input type="text" name="firstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Last Name *</label>
+                        <input type="text" name="lastName" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Email *</label>
+                    <input type="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Phone *</label>
+                    <input type="tel" name="phone" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Address *</label>
+                    <input type="text" name="address" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>City *</label>
+                        <input type="text" name="city" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Postal Code *</label>
+                        <input type="text" name="postal" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Country *</label>
+                    <select name="country" required>
+                        <option value="">Select Country</option>
+                        <option value="Thailand">Thailand</option>
+                        <option value="USA">United States</option>
+                        <option value="UK">United Kingdom</option>
+                    </select>
+                </div>
+
+                <h3>Payment Method</h3>
+                <div class="payment-methods">
+                    <label>
+                        <input type="radio" name="payment" value="credit-card" checked>
+                        Credit Card
+                    </label>
+                    <label>
+                        <input type="radio" name="payment" value="paypal">
+                        PayPal
+                    </label>
+                    <label>
+                        <input type="radio" name="payment" value="cod">
+                        Cash on Delivery
+                    </label>
+                </div>
+
+                <button type="submit" class="place-order-btn">Place Order</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 TechGadgets. Built with TypeScript + Supabase</p>
+    </footer>
+
+    <script type="module" src="dist/checkout.js"></script>
+    <script type="module">
+        import { initCheckoutPage } from './dist/checkout.js';
+        initCheckoutPage();
+    </script>
+</body>
+
+</html>

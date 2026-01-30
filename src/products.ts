@@ -1,5 +1,6 @@
 import { supabase } from './config.js';
 import { Product, Category } from './types.js';
+import { addToCart, updateCartCount } from './cart.js';  // ADD THIS LINE
 
 // Fetch all products from Supabase
 export async function fetchProducts(): Promise<Product[]> {
@@ -72,11 +73,15 @@ export function displayProducts(products: Product[], containerId: string): void 
       <button class="add-to-cart-btn" data-id="${product.id}">Add to Cart</button>
     </div>
   `).join('');
+
+    // ADD THIS LINE:
+    attachAddToCartListeners();
 }
 
 // Initialize products page
 export async function initProductsPage(): Promise<void> {
     const products = await fetchProducts();
+    updateCartCount();  // ADD THIS
     displayProducts(products, 'products-grid');
 
     // Search functionality
@@ -107,7 +112,30 @@ export async function initProductsPage(): Promise<void> {
 
 // Initialize homepage (show first 4 products)
 export async function initHomePage(): Promise<void> {
+    updateCartCount();  // ADD THIS
     const products = await fetchProducts();
     const featured = products.slice(0, 4);
     displayProducts(featured, 'featured-products');
+}
+
+// Attach add to cart listeners
+export function attachAddToCartListeners(): void {
+    document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+        btn.addEventListener('click', async (e) => {
+            const target = e.target as HTMLButtonElement;
+            const productId = parseInt(target.dataset.id || '0');
+
+            if (productId) {
+                const { data, error } = await supabase
+                    .from('products')
+                    .select('*')
+                    .eq('id', productId)
+                    .single();
+
+                if (data && !error) {
+                    addToCart(data);
+                }
+            }
+        });
+    });
 }
